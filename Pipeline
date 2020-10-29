@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "apache-maven-3.6.3"
+    }
+
+    stages {
+        stage('checkout') {
+            
+            steps {
+                
+                git 'https://github.com/nehaa13/Maven_War_Project.git'
+            }
+        }    
+        stage('Build') {
+            
+            steps {
+                
+                bat 'mvn clean'
+                
+                bat 'mvn compile'
+            }
+        }
+        stage('Test') {
+            
+            steps {
+                
+                bat 'mvn test'
+            }
+        }
+        
+        stage('code_coverage') {
+            
+            steps {
+                
+                bat 'mvn sonar:sonar'
+            }
+        }
+    }
+           
+}
+    
+    
+
